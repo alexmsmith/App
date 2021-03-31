@@ -1,0 +1,6 @@
+{
+    "require": {
+        "robmorgan/phinx": "^0.12.6",
+        "twig/twig": "3.0"
+    }
+}
