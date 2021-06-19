@@ -1,7 +1,7 @@
 <?php
 	session_start();
 	define('__ROOT__', dirname(dirname(__FILE__)));
-	require_once(__ROOT__.'\..\crimeApp\config\dbConfig.php');
+	require_once(__ROOT__.'\..\App\config\dbConfig.php');
 
 	spl_autoload_register(function ($class_name) {
 		include '../controllers/' . $class_name . '.php';
