@@ -34,6 +34,7 @@ class AuthModel {
 			if ($row) {
 				if (password_verify($password, $row['password'])) {
 					$_SESSION['user_id'] = $row['id'];
+                    $_SESSION['user_name'] = $row['username'];
 					header('Location: index.php');
 					return;
 				}
@@ -90,11 +91,23 @@ class AuthModel {
 
         if (!$usernameResult && !$emailResult) {
             $stmt = $this->conn->prepare('INSERT INTO User (username, password, email) VALUES (:username, :password, :email)');
-
             $stmt->bindParam(':username', $formUsername, PDO::PARAM_STR);
             $stmt->bindParam(':password', $hashedPassword, PDO::PARAM_STR);
             $stmt->bindParam(':email', $formEmail, PDO::PARAM_STR);
-            
+            $stmt->execute();
+
+            // Close PDO connection instance
+            $stmt = null;
+
+            // Generate a corresponding user profile
+            $userId = $this->conn->lastInsertId();
+            $profileBio = '';
+            $profileWorkexperience = '';
+
+            $stmt = $this->conn->prepare('INSERT INTO Profile (user_id, profile_bio, profile_workexperience) VALUES (:userId, :profileBio, :profileWorkexperience)');
+            $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
+            $stmt->bindParam(':profileBio', $profileBio, PDO::PARAM_STR);
+            $stmt->bindParam(':profileWorkexperience', $profileWorkexperience, PDO::PARAM_STR);
             $stmt->execute();
 
             // Close PDO connection instance

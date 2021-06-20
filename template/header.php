@@ -15,20 +15,25 @@
 		<link rel="stylesheet" href="../css/base.css">
 	</head>
 	<body>
-		<nav>
-			<ul>
+		<nav class="navBar">
+			<ul class="navLeft">
 			<?php if (isset($_SESSION['user_id'])) { ?>
-				<li style="display: inline-block; color: white"><a href="index.php">Index</a></li>
-				<li style="display: inline-block; color: white"><a href="stats.php">Covid Stats</a></li>
-				<li style="display: inline-block; color: white">
-					<form method="POST" action="logout.php">
-						<input type="submit" value="Logout" name="logout">
-					</form>
-				</li>
+				<li><a href="index.php">Index</a></li>
+				<li><a href="profile.php?username=<?php echo $_SESSION['user_name'] ?>">My Profile</a></li>
 			<?php 
 				} else { ?>
-					<li style="display: inline-block; color: white"><a href="login.php">Login</a></li>
-					<li style="display: inline-block; color: white"><a href="register.php">Register</a></li>
+					<li><a href="login.php">Login</a></li>
+					<li><a href="register.php">Register</a></li>
 				<?php } ?>
 			</ul>
+			<?php if (isset($_SESSION['user_id'])) { ?>
+				<ul class="navRight">
+					<li><a href="projects.php">Projects</a></li>
+					<li>
+						<form method="POST" action="logout.php">
+							<input type="submit" value="Logout" name="logout">
+						</form>
+					</li>
+				</ul>
+			<?php } ?>
 		</nav>

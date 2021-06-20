@@ -26,7 +26,7 @@ if (isset($_POST['delete'])) {
 }
 ?>
 
-<button id="toggleBtn" onclick="openModal()">New Project</button>
+<button id="toggleBtn" onclick="openModal()" class="create-btn">Create Project</button>
 <div id="modal" class="modal-container">
     <button onclick="closeModal()">X</button>
     <h3>Create A Project</h3>
